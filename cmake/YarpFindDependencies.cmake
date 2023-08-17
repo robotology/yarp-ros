@@ -282,9 +282,9 @@ set(ACE_REQUIRED_VERSION 6.0.0)
 find_package(ACE ${ACE_REQUIRED_VERSION} QUIET)
 checkandset_dependency(ACE)
 
-set(RobotTestingFramework_REQUIRED_VERSION 2)
-find_package(RobotTestingFramework ${RobotTestingFramework_REQUIRED_VERSION} QUIET)
-checkandset_dependency(RobotTestingFramework)
+#set(RobotTestingFramework_REQUIRED_VERSION 2)
+#find_package(RobotTestingFramework ${RobotTestingFramework_REQUIRED_VERSION} QUIET)
+#checkandset_dependency(RobotTestingFramework)
 
 find_package(SQLite3 QUIET)
 checkbuildandset_dependency(SQLite3)
@@ -302,19 +302,6 @@ buildandset_dependency(xmlrpcpp)
 set(YARP_CUSTOM_REASON_hmac "not searched")
 buildandset_dependency(hmac)
 
-find_package(Eigen3 QUIET)
-checkandset_dependency(Eigen3)
-
-set(Qt5_REQUIRED_VERSION 5.4)
-find_package(Qt5 ${Qt5_REQUIRED_VERSION} COMPONENTS Core Widgets Gui Quick Qml Multimedia Xml PrintSupport OPTIONAL_COMPONENTS DBus QUIET)
-checkandset_dependency(Qt5)
-
-find_package(QCustomPlot QUIET)
-checkbuildandset_dependency(QCustomPlot Qt5)
-
-find_package(Graphviz QUIET)
-checkandset_dependency(Graphviz)
-
 set(YARP_CUSTOM_REASON_QGVCore "customized version")
 find_package(QGVCore QUIET)
 checkbuildandset_dependency(QGVCore Qt5 Graphviz)
@@ -323,100 +310,11 @@ set(SWIG_REQUIRED_VERSION 4)
 find_package(SWIG ${SWIG_REQUIRED_VERSION} QUIET)
 checkandset_dependency(SWIG)
 
-# Both OpenCV 3 and 4 are supported
-#
-# WARNING OpenCV 3 must be searched before OpenCV 4, otherwise the build will
-#         fail with OpenCV3. The opposite does not seem to happen.
-set(OpenCV_REQUIRED_VERSION 3)
-find_package(OpenCV ${OpenCV_REQUIRED_VERSION} QUIET)
-if(NOT OpenCV_FOUND)
-  find_package(OpenCV 4 QUIET)
-endif()
-checkandset_dependency(OpenCV)
-
 find_package(Lua QUIET)
 checkandset_dependency(Lua)
 
-set(Libdc1394_REQUIRED_VERSION 2.0)
-find_package(Libdc1394 ${Libdc1394_REQUIRED_VERSION} QUIET)
-checkandset_dependency(Libdc1394)
-
-find_package(JPEG QUIET)
-checkandset_dependency(JPEG)
-
-find_package(ZLIB QUIET)
-checkandset_dependency(ZLIB)
-
-find_package(PNG QUIET)
-checkandset_dependency(PNG)
-
-find_package(MPI QUIET)
-checkandset_dependency(MPI)
-
-find_package(OpenGL QUIET)
-checkandset_dependency(OpenGL)
-
-find_package(FTDI QUIET)
-checkandset_dependency(FTDI)
-
-find_package(FFMPEG COMPONENTS avcodec avutil OPTIONAL_COMPONENTS avformat avdevice swscale QUIET)
-checkandset_dependency(FFMPEG)
-
-find_package(SDL QUIET)
-checkandset_dependency(SDL)
-
-find_package(PortAudio QUIET)
-checkandset_dependency(PortAudio)
-
-set(ZFP_REQUIRED_VERSION 0.5.1)
-find_package(ZFP ${ZFP_REQUIRED_VERSION} QUIET)
-checkandset_dependency(ZFP)
-
-find_package(OpenNI2 QUIET)
-checkandset_dependency(OpenNI2)
-
-find_package(PCL COMPONENTS common io QUIET)
-checkandset_dependency(PCL)
-
 find_package(Doxygen)
 checkandset_dependency(Doxygen)
-
-find_package(GObject QUIET)
-checkandset_dependency(GObject)
-
-find_package(GLIB2 QUIET)
-checkandset_dependency(GLIB2)
-
-find_package(SOXR QUIET)
-checkandset_dependency(SOXR)
-
-set(GStreamer_REQUIRED_VERSION 1.4)
-find_package(GStreamer ${GStreamer_REQUIRED_VERSION} QUIET)
-checkandset_dependency(GStreamer)
-
-set(GStreamerPluginsBase_REQUIRED_VERSION 1.4)
-find_package(GStreamerPluginsBase ${GStreamerPluginsBase_REQUIRED_VERSION} COMPONENTS app QUIET)
-checkandset_dependency(GStreamerPluginsBase)
-
-set(BISON_REQUIRED_VERSION 2.5)
-find_package(BISON ${BISON_REQUIRED_VERSION} QUIET)
-checkandset_dependency(BISON)
-
-find_package(FLEX QUIET)
-checkandset_dependency(FLEX)
-
-find_package(I2C QUIET)
-checkandset_dependency(I2C)
-
-find_package(Libv4l2 QUIET)
-checkandset_dependency(Libv4l2)
-
-find_package(Libv4lconvert QUIET)
-checkandset_dependency(Libv4lconvert)
-
-find_package(Fuse QUIET)
-checkandset_dependency(Fuse)
-
 
 ################################################################################
 # Options
@@ -494,123 +392,18 @@ else()
 endif()
 set_property(CACHE YARP_USE_ACE PROPERTY TYPE INTERNAL)
 
-
-yarp_dependent_option(
-  YARP_COMPILE_libYARP_math "Create math library YARP_math?" ON
-  YARP_HAS_Eigen3 OFF
-)
-yarp_renamed_option(CREATE_LIB_MATH YARP_COMPILE_libYARP_math) # Deprecated since YARP 3.2
-
-yarp_dependent_option(
-  YARP_COMPILE_libYARP_robotinterface "Do you want to compile the library YARP_robotinterface?" ON
-  "YARP_HAS_TinyXML" OFF
-)
-
-yarp_dependent_option(
-  YARP_COMPILE_GUIS "Do you want to compile GUIs" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_HAS_Qt5" OFF
-)
-yarp_renamed_option(CREATE_GUIS YARP_COMPILE_GUIS) # Deprecated since YARP 3.2
-
-yarp_dependent_option(
-  YARP_COMPILE_yarprobotinterface "Do you want to compile yarprobotinterface?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_HAS_TinyXML" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpmanager-console "Do you want to compile YARP Module Manager (console)?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_HAS_TinyXML" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpdatadumper "Do you want to compile yarpdatadumper?" ON
-  "YARP_COMPILE_EXECUTABLES" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpview "Do you want to compile yarpview?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpmanager "Do you want to compile yarpmanager?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5;YARP_HAS_TinyXML" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarplogger "Do you want to create yarplogger?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpscope "Do you want to create yarpscope?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5;YARP_HAS_TinyXML;YARP_HAS_QCustomPlot" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpdataplayer "Do you want to compile yarpdataplayer?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpmotorgui "Do you want to compile yarpmotorgui?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpbatterygui "Do you want to compile yarpbatterygui?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpaudiocontrolgui "Do you want to compile yarpaudiocontrolgui?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpmobilebasegui "Do you want to compile yarpmobilebasegui?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarplaserscannergui  "Do you want to compile yarplaserscannergui?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5;YARP_HAS_OpenCV" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpviz "Do you want to compile yarpviz?" ON
-  "YARP_COMPILE_EXECUTABLES;YARP_COMPILE_GUIS;YARP_HAS_Qt5;YARP_HAS_Graphviz;YARP_HAS_QGVCore" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_yarpconnectionsinfo "Do you want to compile yarpconnectionsinfo?" ON
-  "YARP_COMPILE_EXECUTABLES" OFF
-)
-yarp_dependent_option(
-  YARP_COMPILE_RobotTestingFramework_ADDONS "Compile Robot Testing Framework addons." ON
-  "YARP_HAS_RobotTestingFramework" OFF
-)
+#yarp_dependent_option(
+#  YARP_COMPILE_RobotTestingFramework_ADDONS "Compile Robot Testing Framework addons." ON
+#  "YARP_HAS_RobotTestingFramework" OFF
+#)
 
 ################################################################################
 # Disable some parts if they are not required
 
-set(YARP_COMPILE_libYARP_manager OFF)
-if(YARP_COMPILE_yarpmanager-console OR YARP_COMPILE_yarpmanager OR YARP_COMPILE_RobotTestingFramework_ADDONS)
-  set(YARP_COMPILE_libYARP_manager ON)
-endif()
-
-set(YARP_COMPILE_libYARP_profiler OFF)
-if(YARP_COMPILE_yarpviz OR YARP_COMPILE_yarpmanager OR YARP_COMPILE_yarpconnectionsinfo)
-  set(YARP_COMPILE_libYARP_profiler ON)
-endif()
 
 set(YARP_COMPILE_libYARP_robottestingframework OFF)
 if(YARP_COMPILE_RobotTestingFramework_ADDONS)
   set(YARP_COMPILE_libYARP_robottestingframework ON)
-endif()
-
-if(NOT YARP_COMPILE_yarprobotinterface AND
-   NOT YARP_COMPILE_yarpscope AND
-   NOT YARP_COMPILE_libYARP_manager AND
-   NOT YARP_COMPILE_libYARP_robotinterface)
-  set(YARP_BUILD_TinyXML FALSE)
-  unset(YARP_HAS_TinyXML)
-endif()
-
-if(NOT YARP_COMPILE_yarpviz)
-  set(YARP_BUILD_QGVCore FALSE)
-  unset(YARP_HAS_QGVCore)
-endif()
-
-if(NOT YARP_COMPILE_yarpscope)
-  set(YARP_BUILD_QCustomPlot FALSE)
-  unset(YARP_HAS_QCustomPlot)
 endif()
 
 ################################################################################
@@ -622,42 +415,12 @@ print_dependency(YCM)
 print_dependency(ACE)
 print_dependency(RobotTestingFramework)
 print_dependency(SQLite3)
-print_dependency(Eigen3)
 print_dependency(TinyXML)
 print_dependency(xmlrpcpp)
 print_dependency(hmac)
-print_dependency(Qt5)
-print_dependency(QCustomPlot)
-print_dependency(Graphviz)
-print_dependency(QGVCore)
 print_dependency(Libedit)
 print_dependency(SWIG)
-print_dependency(OpenCV)
-print_dependency(PCL)
 print_dependency(Lua)
-print_dependency(OpenGL)
-print_dependency(Libdc1394)
-print_dependency(JPEG)
-print_dependency(PNG)
-print_dependency(MPI)
-print_dependency(FTDI)
-print_dependency(FFMPEG)
-print_dependency(SDL)
-print_dependency(PortAudio)
-print_dependency(ZFP)
-print_dependency(OpenNI2)
-print_dependency(GLIB2)
-print_dependency(GObject)
-print_dependency(GStreamer)
-print_dependency(GStreamerPluginsBase)
-print_dependency(BISON)
-print_dependency(FLEX)
-print_dependency(I2C)
-print_dependency(Libv4l2)
-print_dependency(Libv4lconvert)
-print_dependency(Fuse)
-print_dependency(ZLIB)
-print_dependency(SOXR)
 
 ################################################################################
 # Print information for user
@@ -669,25 +432,7 @@ yarp_print_feature(SKIP_ACE 0 "Disable ACE library")
 yarp_print_feature(YARP_NO_DEPRECATED 0 "Filter out deprecated declarations from YARP API")
 yarp_print_feature(YARP_NO_DEPRECATED_WARNINGS 1 "Do not warn when using YARP deprecated declarations")
 
-yarp_print_feature(YARP_COMPILE_libYARP_math 0 "Compile YARP_math library")
-
 yarp_print_feature(YARP_COMPILE_EXECUTABLES 0 "Compile executables")
-yarp_print_feature(YARP_COMPILE_yarprobotinterface 1 "Compile yarprobotinterface${YARP_COMPILE_yarprobotinterface_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpmanager-console 1 "Compile YARP Module Manager (console)${YARP_COMPILE_yarpmanager-console_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpdatadumper 1 "Compile yarpdatadumper${YARP_COMPILE_yarpdatadumper_disable_reason}")
-yarp_print_feature("YARP_COMPILE_yarpdatadumper AND YARP_HAS_OpenCV" 2 "yarpdatadumper video support")
-yarp_print_feature(YARP_COMPILE_GUIS 1 "Compile GUIs${YARP_COMPILE_GUIS_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpview 2 "Compile yarpview${YARP_COMPILE_yarpview_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpmanager 2 "Compile yarpmanager${YARP_COMPILE_yarpmanager_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarplogger 2 "Compile yarplogger${YARP_COMPILE_yarplogger_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpscope 2 "Compile yarpscope${YARP_COMPILE_yarpscope_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpdataplayer 2 "Compile yarpdataplayer${YARP_COMPILE_yarpdataplayer_disable_reason}")
-yarp_print_feature("YARP_COMPILE_yarpdataplayer AND YARP_HAS_OpenCV" 3 "yarpdataplayer video support")
-yarp_print_feature(YARP_COMPILE_yarpmotorgui 2 "Compile yarpmotorgui${YARP_COMPILE_yarpmotorgui_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarplaserscannergui 2 "Compile yarplaserscannergui${YARP_COMPILE_yarplaserscannergui_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpbatterygui 2 "Compile yarpbatterygui${YARP_COMPILE_yarpbatterygui_disable_reason}")
-yarp_print_feature(YARP_COMPILE_yarpviz 2 "Compile yarpviz${YARP_COMPILE_yarpviz_disable_reason}")
-
 yarp_print_feature(YARP_COMPILE_RobotTestingFramework_ADDONS 0 "Compile Robot Testing Framework addons")
 yarp_print_feature(YARP_COMPILE_UNMAINTAINED 0 "Compile Unmaintained components")
 
