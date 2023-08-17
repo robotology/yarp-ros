@@ -31,7 +31,7 @@ list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_DIR})
 # This is required here, because YarpVersion uses GitInfo from YCM
 set(YCM_REQUIRED_VERSION 0.15.1) # Used also by YarpFindDependencies
 find_package(YCM ${YCM_REQUIRED_VERSION} REQUIRED)
-find_package(YARP 3.8.0 COMPONENTS os sig dev rosmsg serversql OPTIONAL_COMPONENTS math REQUIRED)
+find_package(YARP 3.8.0 COMPONENTS os sig dev serversql OPTIONAL_COMPONENTS math REQUIRED)
 find_package(YARP 3.8.0 COMPONENTS catch2 QUIET)
 
 # Get the current YARP version.
