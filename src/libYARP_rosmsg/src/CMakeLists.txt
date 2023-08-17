@@ -3,7 +3,7 @@
 
 project(YARP_rosmsg)
 
-include(YarpChooseIDL)
+include(${CMAKE_SOURCE_DIR}/cmake/YarpChooseIDL.cmake)
 
 # yarpRosHelper.h is used by several devices
 # For now in impl since it might be removed in the future
