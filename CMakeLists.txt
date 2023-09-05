@@ -51,6 +51,10 @@ set_property(GLOBAL PROPERTY AUTOGEN_SOURCE_GROUP "Generated Files")
 #include(YarpOptions)
 
 #########################################################################
+# Compile libraries using -fPIC to produce position independent code.
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+#########################################################################
 # Control whether libraries are shared or static (imported from YarpOptions)
 
 option(BUILD_SHARED_LIBS "Compile shared libraries rather than linking statically" ON)
