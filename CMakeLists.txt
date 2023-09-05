@@ -50,10 +50,32 @@ set_property(GLOBAL PROPERTY AUTOGEN_SOURCE_GROUP "Generated Files")
 # See cmake/YarpOptions.cmake.
 #include(YarpOptions)
 
+#########################################################################
+# Control whether libraries are shared or static (imported from YarpOptions)
+
+option(BUILD_SHARED_LIBS "Compile shared libraries rather than linking statically" ON)
+mark_as_advanced(BUILD_SHARED_LIBS)
+
+set(YARP_DLL OFF)
+if(BUILD_SHARED_LIBS)
+  set(YARP_DLL ON)
+endif()
+
+set (YARP_LINK_PLUGINS TRUE)
+if(YARP_FORCE_DYNAMIC_PLUGINS OR BUILD_SHARED_LIBS)
+  set (YARP_LINK_PLUGINS FALSE)
+endif()
+
+#########################################################################
+# Turn on testing  (imported from YarpOptions)
+
 option(YARP_COMPILE_TESTS "Enable YARP tests" OFF)
 if(YARP_COMPILE_TESTS)
   enable_testing()
 endif()
+
+#########################################################################
+# Other stuff
 
 message(STATUS "Using:")
 message(STATUS "  CMake: ${CMAKE_VERSION} (${CMAKE_COMMAND})")
