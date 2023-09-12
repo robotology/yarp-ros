@@ -10,8 +10,8 @@ yarp_begin_plugin_library(yarpcar
   DEFAULT ON
 )
 
-#  add_subdirectory(xmlrpc_carrier)
-  add_subdirectory(tcpros_carrier)
+add_subdirectory(xmlrpc_carrier)
+add_subdirectory(tcpros_carrier)
 
 yarp_end_plugin_library(yarpcar QUIET)
 add_library(YARP::yarpcar ALIAS yarpcar)
