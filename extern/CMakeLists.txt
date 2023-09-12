@@ -8,6 +8,14 @@ get_property(_USER_CMAKE_CXX_FLAGS CACHE CMAKE_CXX_FLAGS PROPERTY VALUE)
 set(CMAKE_C_FLAGS "-w ${_USER_CMAKE_C_FLAGS}")
 set(CMAKE_CXX_FLAGS "-w ${_USER_CMAKE_CXX_FLAGS}")
 
+# XmlRpc++
+if(YARP_BUILD_xmlrpcpp)
+  add_subdirectory(xmlrpcpp)
+  set(xmlrpcpp_INCLUDE_DIRS ${xmlrpcpp_INCLUDE_DIRS} PARENT_SCOPE)
+  set(xmlrpcpp_LIBRARIES ${xmlrpcpp_LIBRARIES} PARENT_SCOPE)
+  set(xmlrpcpp_DEFINITIONS ${xmlrpcpp_DEFINITIONS} PARENT_SCOPE)
+endif()
+
 # Apache Thrift
 set(THRIFT_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/thrift/thrift" PARENT_SCOPE)
 
