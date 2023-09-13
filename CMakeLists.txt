@@ -45,6 +45,7 @@ set_property(GLOBAL PROPERTY AUTOGEN_SOURCE_GROUP "Generated Files")
 # Check system configuration.
 # See cmake/YarpSystemCheck.cmake.
 #include(YarpSystemCheck)
+include(CheckCXXCompilerFlag)
 
 # Set up some compilation options.
 # See cmake/YarpOptions.cmake.
