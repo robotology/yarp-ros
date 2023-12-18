@@ -40,8 +40,8 @@ endif()
 
 install(
   TARGETS yarpidl_rosmsg
-  EXPORT YARP_idl_tools
-  COMPONENT YARP_idl_tools
+  EXPORT YARP_rosmsg
+  COMPONENT YARP_rosmsg
   DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 

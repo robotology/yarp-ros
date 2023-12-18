@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-find_package(YARP COMPONENTS os idl_tools REQUIRED)
+find_package(YARP COMPONENTS os idl_tools rosmsg REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 

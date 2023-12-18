@@ -5,7 +5,7 @@
 include(YarpPlugin)
 include(YarpPrintFeature)
 
-yarp_begin_plugin_library(yarpcar
+yarp_begin_plugin_library(yarpcarros
   OPTION YARP_COMPILE_CARRIER_PLUGINS
   DEFAULT ON
 )
@@ -13,22 +13,22 @@ yarp_begin_plugin_library(yarpcar
 add_subdirectory(xmlrpc_carrier)
 add_subdirectory(tcpros_carrier)
 
-yarp_end_plugin_library(yarpcar QUIET)
-add_library(YARP::yarpcar ALIAS yarpcar)
+yarp_end_plugin_library(yarpcarros QUIET)
+add_library(YARP::yarpcarros ALIAS yarpcarros)
 
 install(
-  TARGETS yarpcar
-  EXPORT YARP_yarpcar
-  COMPONENT yarpcar
+  TARGETS yarpcarros
+  EXPORT YARP_yarpcarros
+  COMPONENT yarpcarros
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
   ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
 )
 
 include(YarpInstallBasicPackageFiles)
-yarp_install_basic_package_files(YARP_yarpcar
-  DEPENDENCIES ${YARP_yarpcar_PUBLIC_DEPS}
-  PRIVATE_DEPENDENCIES ${YARP_yarpcar_PRIVATE_DEPS}
+yarp_install_basic_package_files(YARP_yarpcarros
+  DEPENDENCIES ${YARP_yarpcarros_PUBLIC_DEPS}
+  PRIVATE_DEPENDENCIES ${YARP_yarpcarros_PRIVATE_DEPS}
 )
 
-set_property(TARGET yarpcar PROPERTY FOLDER "Plugins/Carrier")
+set_property(TARGET yarpcarros PROPERTY FOLDER "Plugins/Carrier")
