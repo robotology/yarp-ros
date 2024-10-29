@@ -51,19 +51,14 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: conda-incubator/setup-miniconda@v2
+    - uses: conda-incubator/setup-miniconda@v3
       with:
-        miniforge-variant: Mambaforge
         miniforge-version: latest
 
     - name: Dependencies
       shell: bash -l {0}
       run: |
-        # Compilation related dependencies
-        mamba install cmake compilers make ninja pkg-config
-        # Actual dependencies
-        mamba install -c conda-forge -c robostack-staging ycm-cmake-modules ace ros-noetic-ros-base
-
+        conda install -c conda-forge -c robostack-staging ycm-cmake-modules ace ros-noetic-ros-base cmake compilers make ninja pkg-config
 
     - name: Download YARP [Linux&macOS]
       if: contains(matrix.os, 'macos') || contains(matrix.os, 'ubuntu')
