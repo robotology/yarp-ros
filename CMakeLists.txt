@@ -17,7 +17,7 @@ endif()
 # Main project
 project(
   YARP-ros
-  VERSION 3.9.0
+  VERSION 3.10.0
   LANGUAGES C CXX
 )
 set(PROJECT_DESCRIPTION "YARP-ros: ros interfaces and plugins for YARP")
